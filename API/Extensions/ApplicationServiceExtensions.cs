@@ -1,5 +1,6 @@
 using API.Data;
 using API.Entities;
+using API.Interfaces;
 using API.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,9 @@ public static class ApplicationServiceExtensions
             opt.UseSqlite(config.GetConnectionString("DefaultConnection"));
         });
         services.AddCors();
-        services.AddScoped<ITokenService, TokenService>(); // Created once per client request
+        services.AddScoped<ITokenService, TokenService>(); // AddScoped = created once per client request
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); // All created automapper Profiles
 
         return services;
     }
