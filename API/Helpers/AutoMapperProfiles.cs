@@ -14,5 +14,6 @@ public class AutoMapperProfiles : Profile
             .ForMember(d => d.PhotoUrl, // Manually set the Profile img URL that mapper was unable to discern
                 o => o.MapFrom(s => s.Photos.FirstOrDefault(x => x.IsMain)!.Url));
         CreateMap<Photo, PhotoDto>();
+        CreateMap<MemberUpdateDto, AppUser>();
     }
 }
