@@ -1,0 +1,42 @@
+import { NgIf } from '@angular/common';
+import { Component, input, Self } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
+@Component({
+  selector: 'app-date-picker',
+  standalone: true,
+  imports: [BsDatepickerModule, NgIf, ReactiveFormsModule],
+  templateUrl: './date-picker.component.html',
+  styleUrl: './date-picker.component.scss'
+})
+export class DatePickerComponent implements ControlValueAccessor {
+
+  label = input<string>('');
+  maxDate = input<Date>();
+  bsConfig?: Partial<BsDatepickerConfig>;
+
+  constructor(@Self() public ngControl: NgControl){
+    this.ngControl.valueAccessor = this;
+    this.bsConfig = {
+      containerClass: 'theme-green',
+      dateInputFormat: 'DD MMMM YYYY'
+    }
+  }
+
+  registerOnTouched(fn: any): void {
+  }
+
+  writeValue(obj: any): void {
+  }
+
+  registerOnChange(fn: any): void {
+  }
+
+  regiterOnTouched(fn: any): void {
+  }
+
+  get control(): FormControl {
+      return this.ngControl.control as FormControl;
+  }
+}

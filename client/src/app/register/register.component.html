@@ -1,17 +1,33 @@
-<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="register()" autocomplete="off">
     <h2 class="text-center text-primary">Sign up</h2>
     <hr>
-    <div class="mb-3 form-floating">
-        <input type="text" class="form-control" name="username" [(ngModel)]="model.username" placeholder="Username">
-        <label>Username</label>
+
+    <div class="mb-3">
+        <label style="margin-right: 10px;">I am a:</label>
+        <label class="form-check-label">
+            <input type="radio" class="form-check-input" value="male" formControlName="gender"> Male
+            <input type="radio" class="form-check-input" value="female" formControlName="gender"> Female
+            <input type="radio" class="form-check-input" value="else" formControlName="gender"> Else
+        </label>
     </div>
-    <div class="mb-3 form-floating">
-        <input type="password" class="form-control" name="password" [(ngModel)]="model.password" placeholder="Password">
-        <label>Password</label>
+    <app-text-input [formControl]="$any(registerForm.controls['username'])" [label]="'Username'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['knownAs'])" [label]="'Known as'"></app-text-input>
+    <app-date-picker [formControl]="$any(registerForm.controls['dateOfBirth'])" [label]="'Date of Birth'" [maxDate]="maxDate"></app-date-picker>
+    <app-text-input [formControl]="$any(registerForm.controls['city'])" [label]="'City'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['country'])" [label]="'Country'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['password'])" [label]="'Password'" [type]="'password'"></app-text-input>
+    <app-text-input [formControl]="$any(registerForm.controls['confirmPassword'])" [label]="'confirmPassword'" [type]="'password'"></app-text-input>
+
+    @if (validationErrors) {
+    <div class="alert alert-danger text-start">
+        <ul>@for (error of validationErrors; track $index) {
+            <li>{{error}}</li> }
+        </ul>
     </div>
+    }
 
     <div class="form-group text-ceter">
-        <button class="btn btn-success me2" type="submit">Register</button>
+        <button [disabled]="!registerForm.valid" class="btn btn-success me2" type="submit">Register</button>
         <button class="btn btn-outline-dark me2" (click)="cancel()" type="button">Cancel</button>
     </div>
 </form>
