@@ -14,7 +14,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseCors(
-    x => x.AllowAnyHeader().AllowAnyHeader().WithOrigins("http://localhost:4200", "https://localhost:4200").AllowCredentials()); // Configure the HTTP request pipeline
+    x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:4200", "https://localhost:4200").AllowCredentials()); // Configure the HTTP request pipeline
 
 app.UseAuthentication();
 app.UseAuthorization();
